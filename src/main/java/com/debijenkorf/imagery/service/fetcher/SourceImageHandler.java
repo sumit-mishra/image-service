@@ -20,11 +20,12 @@ public class SourceImageHandler implements ImageHandler {
     @Override
     public ByteArrayResource getImage(String reference) {
         try {
-            log.info("SourceImageHandler::getImage, calling source to fetch the image.");
+            log.debug("SourceImageHandler::getImage, calling source to fetch the image.");
             Optional<ByteArrayResource> image = intershopClient.getImage(reference);
             if (image.isPresent()) {
                 return image.get();
             } else {
+                log.info("SourceImageHandler::getImage, requested {} image type does not exist. {}", PredefinedType.SOURCE_, reference);
                 throw new ImageNotFoundException("SOURCE_REFERENCE_NOT_FOUND",
                         String.format("Image not found in the '%s'.", PredefinedType.SOURCE_));
             }
@@ -37,13 +38,13 @@ public class SourceImageHandler implements ImageHandler {
 
     @Override
     public String uploadImage(String reference, ByteArrayResource image) {
-        log.info("SourceImageHandler::uploadImage, uploading to {} is unavailable.", PredefinedType.SOURCE_);
+        log.debug("SourceImageHandler::uploadImage, uploading to {} is unavailable.", PredefinedType.SOURCE_);
         return null;
     }
 
     @Override
     public void flushImage(String reference) {
-        log.info("SourceImageHandler::flushImage, flushing from {} is unavailable.", PredefinedType.SOURCE_);
+        log.debug("SourceImageHandler::flushImage, flushing from {} is unavailable.", PredefinedType.SOURCE_);
     }
 
 }

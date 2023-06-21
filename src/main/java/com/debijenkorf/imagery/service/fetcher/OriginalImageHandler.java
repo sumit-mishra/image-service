@@ -20,24 +20,24 @@ public class OriginalImageHandler implements ImageHandler {
     @Override
     @CircuitBreaker(name = "OriginalImageHandler", fallbackMethod = "originalImageFetcherFallback")
     public ByteArrayResource getImage(String reference) {
-        log.info("OriginalImageHandler::getImage, calling s3 to fetch the image.");
+        log.debug("OriginalImageHandler::getImage, calling s3 to fetch the image.");
         return s3Service.getImage(getS3Key(reference));
     }
 
     @Override
     public String uploadImage(String reference, ByteArrayResource image) {
-        log.info("OriginalImageHandler::uploadImage, uploading {} image : {}", PredefinedType.ORIGINAL_, reference);
+        log.debug("OriginalImageHandler::uploadImage, uploading {} image : {}", PredefinedType.ORIGINAL_, reference);
         return s3Service.uploadImage(getS3Key(reference), image);
     }
 
     @Override
     public void flushImage(String reference) {
-        log.info("OriginalImageHandler::flushImage, flushing {} image : {}", PredefinedType.ORIGINAL_, reference);
+        log.debug("OriginalImageHandler::flushImage, flushing {} image : {}", PredefinedType.ORIGINAL_, reference);
         s3Service.flushImage(getS3Key(reference));
     }
 
-    private ByteArrayResource originalImageFetcherFallback(String reference, Exception e) throws InterruptedException {
-        log.info("OriginalImageHandler::originalImageFetcherFallback, trying to get source image : {}", e.getMessage());
+    private ByteArrayResource originalImageFetcherFallback(String reference, Exception e) {
+        log.debug("OriginalImageHandler::originalImageFetcherFallback, trying to get source image : {}", e.getMessage());
         ByteArrayResource image = sourceImageHandler.getImage(reference);
         uploadImage(reference, image);
         return image;

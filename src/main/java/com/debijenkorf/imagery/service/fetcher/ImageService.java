@@ -24,6 +24,7 @@ public class ImageService {
         if (nonNull(imageHandler)) {
             return imageHandler.getImage(reference);
         } else {
+            log.info("ImageService::getImage, requested predefined image type does not exist. {}", reference);
             throw new ImageNotFoundException("INVALID_PREDEFINED_TYPE", "The requested predefined image type does not exist.");
         }
     }
