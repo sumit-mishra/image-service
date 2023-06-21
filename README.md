@@ -66,7 +66,7 @@ To meet the timeline few functionalities are missed (Anyway, I'll try to impleme
 - It was assumed that images will be served as _ByteArrayResource_. Maybe we can just share the presigned s3 urls to deliver the image to improve latency and save data transfer over network.
 - Code functionality coverage with unit tests (wanted to proceed with TDD approach, yet its time-consuming)
 - Image compression logic is absent
-- Logging is not setup for putting the data in cloud db (wanted to use achieve
+- Logging is not setup for putting the data in cloud db (wanted to achieve it
   through [logback DBAppender](https://logback.qos.ch/manual/appenders.html#DBAppender))
 - Metrics are exposed for all kinds of info, may not be needful for production env. At the moment it is setup for debug.
 
