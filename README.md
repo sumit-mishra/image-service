@@ -108,4 +108,5 @@ Default profile is set to `local`. Change profiles by supplying the profile name
 
 profiles : `local`, `test`, `live`
 
-P.S. - Of course AWS S3 credentials are not set with any real value. So, running with test/live profile might result in error while application boot up.
+P.S. - Of course AWS S3 credentials are not set with any real value. So, running with test/live profile might result in
+error while application boot up.
