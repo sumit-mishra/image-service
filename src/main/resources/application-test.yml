@@ -1,0 +1,13 @@
+server:
+  port: 9090
+
+debijenkorf:
+  aws:
+    s3:
+      clientRegion: ${S3_CLIENT_REGION}
+      accessKeyId: ${S3_ACCESS_KEY_ID}
+      secretAccessKey: ${S3_SECRET_ACCESS_KEY}
+      imageBucketName: ${S3_PRODUCT_IMAGES_BUCKET}
+  ecomm:
+    image:
+      base: "http://www.debijenkorf.nl/INTERSHOP/static/WFS/dbk-shop-Site/-/dbk-shop/nl_NL/product-images/"
