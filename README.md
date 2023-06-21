@@ -62,6 +62,8 @@ During the development the code was continuously refactored.
 $\color{orange}{\textsf{What can be better?}}$ <br />
 To meet the timeline few functionalities are missed (Anyway, I'll try to implement later...)
 
+- In order to have a consistent request & response in place, it'd be good if we make this code follow a standard.
+- It was assumed that images will be served as _ByteArrayResource_. Maybe we can just share the presigned s3 urls to deliver the image to improve latency and save data transfer over network.
 - Code functionality coverage with unit tests (wanted to proceed with TDD approach, yet its time-consuming)
 - Image compression logic is absent
 - Logging is not setup for putting the data in cloud db (wanted to use achieve
