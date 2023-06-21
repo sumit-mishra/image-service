@@ -27,12 +27,14 @@ public class ThumbnailImageHandler implements ImageHandler {
     }
 
     @Override
-    public String uploadImage(String reference, ByteArrayResource image) throws InterruptedException {
+    public String uploadImage(String reference, ByteArrayResource image) {
+        log.info("ThumbnailImageHandler::uploadImage, uploading {} image : {}", PredefinedType.THUMBNAIL_, reference);
         return s3Service.uploadImage(reference, image);
     }
 
     @Override
     public void flushImage(String reference) {
+        log.info("ThumbnailImageHandler::flushImage, flushing {} image : {}", PredefinedType.THUMBNAIL_, reference);
         s3Service.flushImage(reference);
     }
 

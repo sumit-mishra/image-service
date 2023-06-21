@@ -26,6 +26,7 @@ public class S3Service {
     private String productImageBucket;
 
     public ByteArrayResource getImage(final String key) {
+        log.info("S3Service::getImage, getting {} from s3.", key);
         try {
             S3Object object = s3.getObject(productImageBucket, key);
             return new ByteArrayResource(object.getObjectContent().readAllBytes());
@@ -38,17 +39,28 @@ public class S3Service {
     /**
      * This can be an asynchronous method to upload the image for better performance
      */
-    public String uploadImage(final String key, final ByteArrayResource resource) throws InterruptedException {
-        log.info("Uploading {} to s3.", key);
-        Upload upload = transferManager.upload(productImageBucket,
-                                               key,
-                                               new ByteArrayInputStream(resource.getByteArray()),
-                                               getObjectMetadata(resource));
-        return upload.waitForUploadResult().getKey();
+    public String uploadImage(final String key, final ByteArrayResource resource) {
+        log.info("S3Service::uploadImage, uploading {} to s3.", key);
+        try {
+            Upload upload = transferManager.upload(productImageBucket,
+                                                   key,
+                                                   new ByteArrayInputStream(resource.getByteArray()),
+                                                   getObjectMetadata(resource));
+            return upload.waitForUploadResult().getKey();
+        } catch (Exception e) {
+            log.error("S3Service::uploadImage, could not upload the image, key : {}, errorMessage : {}", key, e.getMessage());
+            throw new ImageNotFoundException("S3_UPLOAD_FAILED", String.format("Image '%s' could not be uploaded.", key));
+        }
     }
 
     public void flushImage(final String key) {
-        s3.deleteObject(productImageBucket, key);
+        log.info("S3Service::flushImage, flushing {} from s3.", key);
+        try {
+            s3.deleteObject(productImageBucket, key);
+        } catch (Exception e) {
+            log.error("S3Service::flushImage, could not flush the image, key : {}, errorMessage : {}", key, e.getMessage());
+            throw new ImageNotFoundException("S3_FLUSH_FAILED", String.format("Image '%s' could not be flushed.", key));
+        }
     }
 
     private ObjectMetadata getObjectMetadata(final ByteArrayResource resource) {

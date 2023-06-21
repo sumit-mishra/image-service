@@ -25,12 +25,14 @@ public class OriginalImageHandler implements ImageHandler {
     }
 
     @Override
-    public String uploadImage(String reference, ByteArrayResource image) throws InterruptedException {
+    public String uploadImage(String reference, ByteArrayResource image) {
+        log.info("OriginalImageHandler::uploadImage, uploading {} image : {}", PredefinedType.ORIGINAL_, reference);
         return s3Service.uploadImage(getS3Key(reference), image);
     }
 
     @Override
     public void flushImage(String reference) {
+        log.info("OriginalImageHandler::flushImage, flushing {} image : {}", PredefinedType.ORIGINAL_, reference);
         s3Service.flushImage(getS3Key(reference));
     }
 

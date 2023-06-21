@@ -37,11 +37,13 @@ public class SourceImageHandler implements ImageHandler {
 
     @Override
     public String uploadImage(String reference, ByteArrayResource image) {
+        log.info("SourceImageHandler::uploadImage, uploading to {} is unavailable.", PredefinedType.SOURCE_);
         return null;
     }
 
     @Override
     public void flushImage(String reference) {
+        log.info("SourceImageHandler::flushImage, flushing from {} is unavailable.", PredefinedType.SOURCE_);
     }
 
 }
