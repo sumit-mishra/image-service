@@ -24,9 +24,6 @@ public class S3Config {
     @Value("${debijenkorf.aws.s3.secretAccessKey}")
     private String awsSecretAccessKey;
 
-    @Value("${debijenkorf.aws.s3.imageBucketName}")
-    private String imageBucketName;
-
     @Bean
     public AmazonS3 s3Client() {
         BasicAWSCredentials credential = new BasicAWSCredentials(awsAccessKeyId, awsSecretAccessKey);

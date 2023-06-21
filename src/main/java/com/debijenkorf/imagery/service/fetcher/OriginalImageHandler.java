@@ -1,7 +1,7 @@
 package com.debijenkorf.imagery.service.fetcher;
 
 import com.debijenkorf.imagery.constant.image.PredefinedType;
-import com.debijenkorf.imagery.service.upstream.S3Service;
+import com.debijenkorf.imagery.service.upstream.s3.S3Service;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -24,7 +24,7 @@ resilience4j.circuitbreaker:
       failureRateThreshold: 50
       eventConsumerBufferSize: 10
 
-#logging:
-#  level:
-#    com.kramphub.dossier: DEBUG
-#    org.springframework: DEBUG #ERROR
+logging:
+  level:
+    com.debijenkorf.imagery: DEBUG
+    org.springframework: DEBUG #ERROR
