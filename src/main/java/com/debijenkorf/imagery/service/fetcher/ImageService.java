@@ -1,5 +1,6 @@
 package com.debijenkorf.imagery.service.fetcher;
 
+import com.debijenkorf.imagery.constant.image.PredefinedType;
 import com.debijenkorf.imagery.exception.ImageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,12 @@ public class ImageService {
 
     public void flushImage(final String predefinedTypeName, final String reference) {
         log.debug("ImageService::flushImage reference {}", reference);
-        ImageHandler imageHandler = imageHandlers.get(predefinedTypeName);
-        imageHandler.flushImage(reference);
+        if (PredefinedType.ORIGINAL_.equals(predefinedTypeName)) {
+            imageHandlers.values().forEach(imageHandler -> imageHandler.flushImage(reference));
+        } else {
+            ImageHandler imageHandler = imageHandlers.get(predefinedTypeName);
+            imageHandler.flushImage(reference);
+        }
     }
 
 }
